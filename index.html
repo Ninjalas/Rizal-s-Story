@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en" class="lock">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RIZAL: IN THE MAKING</title>
+<meta name="description" content="Before the novels. Before the legend. Before the name became history. An interactive journey through José Rizal's early life, 1861–1878.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-state="landing">
+<a class="sr" href="#src-list">Skip to sources</a>
+
+<header id="rmhead">
+  <h1>RIZAL: IN THE MAKING</h1>
+  <p>Before the novels. Before the legend. Before the name became history.</p>
+</header>
+
+<div id="spacer" aria-hidden="true"></div>
+
+<main id="stage" aria-label="Rizal's early life, 1861 to 1878">
+  <div id="world"></div>
+</main>
+
+<div id="vignette" aria-hidden="true"></div>
+<div id="dust" aria-hidden="true"></div>
+<div id="cue" aria-hidden="true"><span>Scroll</span><i></i></div>
+
+<!-- Landing and book -->
+<div id="intro">
+  <div id="backdrop"></div>
+  <div id="landing"><button id="begin" type="button">CLICK TO BEGIN</button></div>
+  <div id="bookwrap" aria-hidden="true">
+    <div id="dive">
+      <div id="book">
+        <div id="bshadow"></div>
+        <div class="board"></div>
+        <div class="block paper">
+          <div class="pg1">
+            <p class="pk">I</p>
+            <svg viewBox="0 0 250 200" aria-hidden="true"><defs><linearGradient id="pgs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b2228"/><stop offset=".6" stop-color="#6b4636"/><stop offset=".85" stop-color="#b98a5a"/></linearGradient></defs><rect width="250" height="200" fill="url(#pgs)"/><circle cx="140" cy="130" r="9" fill="#f1d6a0"/><path d="M0 136 C25 134 45 126 60 112 C72 100 84 88 94 86 C104 85 110 89 120 98 C134 110 148 124 165 130 C190 133 220 131 250 133 V200 H0Z" fill="#231c22"/><rect y="140" width="250" height="60" fill="#3b3436"/><path d="M0 172 C60 166 120 168 250 170 V200 H0Z" fill="#101116"/></svg>
+            <p class="pt">Calamba, Laguna</p>
+            <p class="pd">1861</p>
+            <p class="pn">Illustration · artistic impression</p>
+          </div>
+        </div>
+        <div id="cover">
+          <div class="face front">
+            <div class="frame"></div>
+            <div class="ct">
+              <h1><span class="t1">RIZAL:</span><span class="t2">IN THE MAKING</span></h1>
+              <div class="orn"></div>
+              <p class="sub">Before the novels. Before the legend. Before the name became history.</p>
+            </div>
+          </div>
+          <div class="face back"><div class="paper" id="plate"></div></div>
+        </div>
+      </div>
+    </div>
+    <p id="hint">SCROLL TO OPEN</p>
+  </div>
+</div>
+
+<!-- Navigation (after the book opens) -->
+<div id="progress" class="ui" aria-hidden="true"></div>
+<nav class="ui" aria-label="Chapters"><ol id="rail"></ol></nav>
+<div id="tools" class="ui">
+  <button id="btn-begin" type="button" aria-label="First page: rewind to the closed book">Beginning</button>
+  <button id="btn-src" type="button" aria-haspopup="dialog" aria-label="The archive: sources and image credits">The Archive</button>
+  <button id="btn-disc" type="button" aria-haspopup="dialog">Moments <span class="found-n">0</span></button>
+</div>
+
+<div id="pop" role="dialog" aria-label="Fact" tabindex="-1" hidden>
+  <img alt="" hidden><p></p><small></small>
+  <button type="button" aria-label="Close fact">×</button>
+</div>
+
+<dialog id="src" aria-labelledby="src-t">
+  <div class="dlg">
+    <button class="x" type="button" aria-label="Close the archive">×</button>
+    <h2 id="src-t">The Archive</h2>
+    <p>Every date and name in this journey comes from the class research document <i>Rizal’s Early Life</i> and the sources it cites. Each link below was opened and checked.</p>
+    <div id="src-list">
+    <h3>Primary texts &amp; institutions</h3>
+    <ul>
+      <li><a href="https://www.gutenberg.org/cache/epub/48438/pg48438-images.html" target="_blank" rel="noopener">Rizal’s Own Story of His Life</a> — José Rizal, ed. Austin Craig (Project Gutenberg)</li>
+      <li><a href="https://www.gutenberg.org/files/6867/6867-h/6867-h.htm" target="_blank" rel="noopener">Lineage, Life and Labors of José Rizal</a> — Austin Craig, ch. IV “Rizal’s Early Childhood” (Project Gutenberg)</li>
+      <li><a href="https://www.nationalmuseum.gov.ph/2021/12/27/jose-rizal-day/" target="_blank" rel="noopener">Jose Rizal Day</a> — National Museum of the Philippines</li>
+      <li><a href="https://philhistoricsites.nhcp.gov.ph/registry_database/jose-rizal-1861-1896-calamba-church/" target="_blank" rel="noopener">José Rizal 1861–1896 (Calamba Church)</a> — NHCP registry</li>
+      <li><a href="https://philhistoricsites.nhcp.gov.ph/registry_database/rizal-in-binan/" target="_blank" rel="noopener">Rizal in Biñan</a> — NHCP registry</li>
+      <li><a href="https://memory.nhcp.gov.ph/historical-sites/gomburza-execution-site/" target="_blank" rel="noopener">GOMBURZA Execution Site</a> — NHCP</li>
+      <li><a href="https://philhistoricsites.nhcp.gov.ph/registry_database/ateneo-de-manila/" target="_blank" rel="noopener">Ateneo de Manila</a> — NHCP registry</li>
+      <li><a href="https://intramuros.gov.ph/mnr/" target="_blank" rel="noopener">Museo ni Rizal</a> — Intramuros Administration</li>
+    </ul>
+    <h3>Class research</h3>
+    <ul>
+      <li><i>Rizal’s Early Life</i> — class research document (timeline and sources)</li>
+      <li><i>The Life of José Rizal from Childhood to College</i> — class research paper; the photographs in this journey come from this file</li>
+    </ul>
+    <h3>References</h3>
+    <ul>
+      <li><a href="https://www.joserizal.com/life/rizal-timeline/" target="_blank" rel="noopener">José Rizal: A Complete Timeline of His Life</a> — JoseRizal.com</li>
+      <li><a href="https://www.joserizal.com/life/rizal-early-life/" target="_blank" rel="noopener">Rizal’s Childhood and Early Education</a> — JoseRizal.com</li>
+      <li><a href="https://www.joserizal.com/life/rizal-ateneo-years/" target="_blank" rel="noopener">Rizal at the Ateneo Municipal, 1872 to 1877</a> — JoseRizal.com</li>
+      <li><a href="https://www.joserizal.com/history/gomburza-execution/" target="_blank" rel="noopener">The Execution of Gomburza</a> — JoseRizal.com</li>
+      <li><a href="https://www.philippinefolklifemuseum.org/exhibitions/jose-rizal/" target="_blank" rel="noopener">José Rizal</a> — Philippine Folklife Museum Foundation</li>
+      <li><a href="https://www.gmanetwork.com/news/lifestyle/artandculture/931344/look-dr-jose-rizal-s-grades-in-ust/story/" target="_blank" rel="noopener">Dr. Jose Rizal’s grades in UST</a> — GMA News</li>
+      <li><a href="https://sites.google.com/g.batstate-u.edu.ph/all-about-rizal/early-life/early-education?authuser=0" target="_blank" rel="noopener">All About Rizal: Early Education</a> — Batangas State University</li>
+      <li><a href="https://experiencebinan.com/rizal-in-binan/" target="_blank" rel="noopener">José Rizal in Biñan</a> — Experience Biñan</li>
+      <li><a href="https://knightsofrizal.be/rizal_child.php" target="_blank" rel="noopener">Rizal’s Childhood</a> — Knights of Rizal</li>
+      <li><a href="https://myrizal150.com/2011/06/chronology-of-rizal/" target="_blank" rel="noopener">Chronology of Rizal</a> — MyRizal150</li>
+      <li><a href="https://askrizal.app/atlas/timeline" target="_blank" rel="noopener">Rizal Atlas Timeline</a> — Ask Rizal (supplementary reference)</li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:Jos%C3%A9_Rizal_baptism.jpg" target="_blank" rel="noopener">Rizal’s baptism record (image)</a> — Wikimedia Commons (linked, not reproduced)</li>
+    </ul>
+    </div>
+    <h3>Image credits</h3>
+    <ul>
+      <li>Early photographs of the Calamba house, the Biñan school site, the Laguna shore, the Santa Rosa gate, his parents, his family, Rizal at fourteen, his Ateneo carving, and his painting of Saturnina: <a href="https://www.gutenberg.org/ebooks/48438" target="_blank" rel="noopener">Rizal’s Own Story of His Life</a> (1918), public domain, via Project Gutenberg</li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:Mt.Makiling.jpg" target="_blank" rel="noopener">Mount Makiling from Calamba</a> — Zian Colt, CC BY-SA 4.0</li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:Calamba_Church_(Poblacion,_Calamba,_Laguna;_2017-02-16).jpg" target="_blank" rel="noopener">Calamba Church</a> — Patrick Roque, CC BY-SA 4.0</li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:Jos%C3%A9_Rizal_baptism.jpg" target="_blank" rel="noopener">Baptismal register page</a> — public domain</li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:Rizal_Shrine_Indoor_(Calamba,_Laguna).jpg" target="_blank" rel="noopener">Rizal Shrine interior</a> — Tsambaproductions, CC BY-SA 3.0</li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:Antipolo_Cathedral_facade_2014.JPG" target="_blank" rel="noopener">Antipolo Cathedral</a> — Urbanroamer, CC BY-SA 4.0</li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:Gomburza.jpg" target="_blank" rel="noopener">Gómez, Burgos and Zamora</a> — unknown author, public domain</li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:Gomburza_execution_site_historical_marker_(English).jpg" target="_blank" rel="noopener">GOMBURZA execution site marker</a> — Titopao, CC BY-SA 4.0</li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:Plano_de_Manila_1851.jpg" target="_blank" rel="noopener">Plano de Manila, 1851</a> — public domain</li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:Ateneo_de_Manila_Original_Site.jpg" target="_blank" rel="noopener">Ateneo original site</a> — Ryomaandres, CC BY-SA 3.0</li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:Ateneo_de_Manila_HistoricalMarker_NHCPStorageManila.JPG" target="_blank" rel="noopener">Ateneo de Manila historical marker</a> — Kej Andrés, CC BY-SA 3.0</li>
+      <li><a href="https://commons.wikimedia.org/wiki/File:UniversityOfSantoTomas10.jpg" target="_blank" rel="noopener">Ruins of the old UST, Intramuros</a> — GabDelRosario, CC BY-SA 4.0</li>
+      <li>Portrait in later years, the 1879 student photo, the Rizal Shrine today, the Biñan school site today and the Biñan and UST markers: from the class research file</li>
+    </ul>
+    <p>All photographs are toned to match the journey and resized; nothing else is altered. CC BY-SA images remain under their licences.</p>
+    <h3>About the images</h3>
+    <p>Every scene is an illustration drawn in code — an artistic impression, not an archival original. Photographs are labelled as photographs, toned to match the journey, and come from the class research file. Where sources differ (for example, the year he began school in Biñan), the text says so.</p>
+  </div>
+</dialog>
+
+<dialog id="disc" aria-labelledby="disc-t">
+  <div class="dlg">
+    <button class="x" type="button" aria-label="Close moments uncovered">×</button>
+    <h2 id="disc-t">Moments uncovered</h2>
+    <p id="disc-sum"></p>
+    <ol id="disc-list" class="disc"></ol>
+    <p>Gold markers, questions, candles and photos all count. What you find is kept only in this browser.</p>
+  </div>
+</dialog>
+
+<div id="grain" aria-hidden="true"></div>
+
+<script>
+/* Archival image slots. Drop in authentic images later; a credit is required or the image is not shown.
+   IMG.portrait = {src:"portrait.jpg", alt:"…", credit:"Photographer / archive, year, licence"};
+   IMG.slots.calamba = {src:"…", alt:"…", credit:"…"};   keys: calamba home moth antipolo school gomburza ateneo graduation route ust */
+window.IMG = {portrait: {src: 'img/rizal-portrait-later.jpg', alt: 'Photograph of José Rizal as an adult', credit: 'José Rizal in later years · photo from the class research file'}, slots: {}};
+</script>
+<script src="js/scenes.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
