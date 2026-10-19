@@ -54,7 +54,7 @@ SCENES.forEach((S, i) => {
     const k = `data-k="${M.k}"${M.to ? ` data-to="${M.to}"` : ''}`, cap = `<figcaption>${M.cap}<small>${M.credit || IMGNOTE}</small></figcaption>`;
     const cls = `${M.pos}${M.size === 'sm' ? ' sm' : ''}`;
     const disc = M.title ? ` data-disc="${add('m' + mi, M.when, M.title, M.k)}"` : '';
-    if (M.type === 'thennow') return `<figure class="photo thennow tx ${cls}" ${k}${disc}><div class="frame" style="aspect-ratio:${M.ratio}">${M.thenSrc ? `<img class="then-img" src="${M.thenSrc}" alt="${esc(M.thenAlt)}" loading="lazy">` : M.then}<img class="now-img" src="${M.src}" alt="${esc(M.alt)}" loading="lazy"><span class="tag then">${M.thenTag || 'Drawn'}</span><span class="tag now">Today</span><input type="range" min="0" max="100" value="82" aria-label="Compare the drawing with today's photo: slide left to reveal more of the photo"></div>${cap}</figure>`;
+    if (M.type === 'thennow') return `<figure class="photo thennow tx ${cls}" ${k}${disc}><div class="frame" style="aspect-ratio:${M.ratio}">${M.thenSrc ? `<img class="then-img" src="${M.thenSrc}" alt="${esc(M.thenAlt)}" loading="lazy">` : M.then}<img class="now-img" src="${M.src}" alt="${esc(M.alt)}" loading="lazy"><button type="button" class="image-view-trigger" aria-label="View today's photo"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m15.5 15.5 5 5"/></svg></button><span class="tag then">${M.thenTag || 'Drawn'}</span><span class="tag now">Today</span><input type="range" min="0" max="100" value="82" aria-label="Compare the drawing with today's photo: slide left to reveal more of the photo"></div>${cap}</figure>`;
     if (M.type === 'develop') return `<figure class="photo develop tx ${cls}" ${k}${disc}><div class="frame"><img src="${M.src}" alt="${esc(M.alt)}" loading="lazy"><button type="button" class="dev-btn">${TOUCH ? 'Tap' : 'Click'} to develop</button></div>${cap}</figure>`;
     return `<figure class="photo tx ${cls}" ${k}><div class="frame"><img src="${M.src}" alt="${esc(M.alt)}" loading="lazy"></div>${cap}</figure>`;
   }).join('') + '</div>';
@@ -79,6 +79,12 @@ $('#plate').innerHTML = (P_ && P_.src && P_.credit)
   ? `<div class="oval"><img src="${esc(P_.src)}" alt="${esc(P_.alt || 'Portrait of José Rizal')}"></div><p class="cap">${esc(P_.credit)}</p>`
   : `<div class="oval"><svg viewBox="0 0 156 200" aria-hidden="true"><defs><pattern id="hatch" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><line x1="0" y1="0" x2="0" y2="4" stroke="#5b4a3a" stroke-width="1.2"/></pattern></defs><rect width="156" height="200" fill="#e4d9c3"/><path d="M78 40 C100 40 110 58 108 82 C106 106 94 122 78 122 C62 122 50 106 48 82 C46 58 56 40 78 40Z" fill="url(#hatch)" opacity=".55"/><path d="M50 74 C46 46 64 32 80 33 C100 34 112 48 107 74 C104 58 94 50 78 50 C64 50 54 58 50 74Z" fill="#3e3127"/><path d="M14 200 C18 160 40 140 64 132 L78 150 L92 132 C116 140 138 160 142 200Z" fill="#3e3127"/><path d="M64 132 L78 168 L92 132 L78 150Z" fill="#e4d9c3"/></svg></div><p class="cap">Portrait plate · Illustration · artistic impression</p>`;
 if (P_ && !(P_.src && P_.credit)) console.warn('IMG.portrait needs src and credit; not shown.');
+document.querySelectorAll('img').forEach(image => {
+  if (image.closest('#image-viewer')) return;
+  image.setAttribute('role', 'button');
+  image.tabIndex = 0;
+  image.setAttribute('aria-label', `View image: ${image.alt || 'open image'}`);
+});
 
 // chapter rail: the book + ten destinations
 const rail = $('#rail');
@@ -99,7 +105,7 @@ const scenes = [...world.children].map((el, i) => {
     txtLayer: el.querySelector('.layer.txt'),
     // each revealed element, the beat it appears at (k) / leaves at (to), and the controls inside it that only work while it is visible
     tx: [...el.querySelectorAll('.tx')].map(e => ({e, k: +e.dataset.k, to: e.dataset.to ? +e.dataset.to : 99, on: null,
-      ctl: e.matches('button,input') ? [e] : [...e.querySelectorAll('button,input')]})),
+      ctl: e.matches('button,input,img') ? [e] : [...e.querySelectorAll('button,input,img')]})),
     quiz: el.querySelector('.quiz'),
     candles: [...el.querySelectorAll('.candle')],
     dev: el.querySelector('.develop'),
@@ -162,6 +168,58 @@ $('#begin').textContent = TOUCH ? 'TAP TO BEGIN' : 'CLICK TO BEGIN';
 $('#hint').textContent = TOUCH ? 'SWIPE TO OPEN' : 'SCROLL TO OPEN';
 $('#cue span').textContent = TOUCH ? 'Swipe' : 'Scroll';
 
+/* ---------- image viewer ---------- */
+const imageViewer = $('#image-viewer');
+const imageViewerImage = imageViewer.querySelector('.image-view-stage img');
+const imageViewerCaption = $('#image-view-caption');
+const zoomOut = imageViewer.querySelector('[data-zoom="-1"]');
+const zoomIn = imageViewer.querySelector('[data-zoom="1"]');
+let imageViewerOpener = null, imageZoom = 1;
+function setImageZoom(value) {
+  imageZoom = clamp(value, 1, 4);
+  imageViewerImage.style.setProperty('--zoom', imageZoom);
+  zoomOut.disabled = imageZoom === 1;
+  zoomIn.disabled = imageZoom === 4;
+}
+function openImageViewer(image, opener = image) {
+  imageViewerOpener = opener;
+  imageViewerImage.src = image.currentSrc || image.src;
+  imageViewerImage.alt = image.alt;
+  const figureCaption = image.closest('figure')?.querySelector('figcaption')?.textContent;
+  const quizCaption = image.closest('.qimg')?.querySelector('span')?.textContent;
+  imageViewerCaption.textContent = (figureCaption || quizCaption || image.alt).trim();
+  setImageZoom(1);
+  imageViewer.showModal();
+  imageViewer.querySelector('.image-view-close').focus();
+}
+imageViewer.querySelector('.image-view-close').addEventListener('click', () => imageViewer.close());
+imageViewer.querySelectorAll('[data-zoom]').forEach(button => {
+  button.addEventListener('click', () => {
+    setImageZoom(imageZoom + Number(button.dataset.zoom) * .5);
+    if (imageZoom === 1) {
+      const stage = imageViewer.querySelector('.image-view-stage');
+      stage.scrollTo(0, 0);
+    }
+  });
+});
+imageViewer.addEventListener('click', e => { if (e.target === imageViewer) imageViewer.close(); });
+imageViewer.addEventListener('close', () => {
+  if (imageViewerOpener?.isConnected) imageViewerOpener.focus();
+  imageViewerOpener = null;
+});
+document.addEventListener('click', e => {
+  const image = e.target.closest('img');
+  if (!image || image.closest('#image-viewer')) return;
+  if (image.closest('.thennow')) return;
+  if (!image.closest('#world')) openImageViewer(image);
+});
+document.addEventListener('keydown', e => {
+  if (e.target.matches('img[role="button"]') && (e.key === 'Enter' || e.key === ' ')) {
+    e.preventDefault();
+    openImageViewer(e.target);
+  }
+});
+
 /* ---------- popover facts ---------- */
 const pop = $('#pop'); let popBtn = null;
 function openPop(btn) {
@@ -172,7 +230,10 @@ function openPop(btn) {
   pop.querySelector('small').textContent = 'Source: ' + btn.dataset.src + (btn.dataset.img ? ' · Image: ' + btn.dataset.imgCredit : '');
   const im = pop.querySelector('img');
   im.hidden = !btn.dataset.img;
-  if (btn.dataset.img) { im.src = btn.dataset.img; im.alt = btn.dataset.imgAlt; }
+  if (btn.dataset.img) {
+    im.src = btn.dataset.img; im.alt = btn.dataset.imgAlt;
+    im.setAttribute('aria-label', `View image: ${im.alt || 'open image'}`);
+  }
   pop.hidden = false;
   const r = btn.getBoundingClientRect(), pr = pop.getBoundingClientRect();
   let x = r.left + r.width / 2 - pr.width / 2, y = r.bottom + 8;
@@ -188,6 +249,13 @@ function closePop(refocus) {
   popBtn = null;
 }
 world.addEventListener('click', e => {
+  const viewTrigger = e.target.closest('.image-view-trigger');
+  if (viewTrigger) {
+    openImageViewer(viewTrigger.closest('.thennow').querySelector('.now-img'), viewTrigger);
+    return;
+  }
+  const image = e.target.closest('img');
+  if (image && !image.closest('.thennow')) { openImageViewer(image); return; }
   const b = e.target.closest('.hs'); if (b) { openPop(b); discover(b.dataset.disc); return; }
   const o = e.target.closest('.quiz button'); if (o) return answerQuiz(o.closest('.quiz'), +o.dataset.o, true);
   const c = e.target.closest('.candle'); if (c) return lightCandle(c.closest('.scene'), +c.dataset.ci, true);
