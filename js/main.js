@@ -67,7 +67,7 @@ SCENES.forEach((S, i) => {
     + (S.date ? `<p class="bd ${S.dpos} tx" data-k="0"${S.dateTo ? ` data-to="${S.dateTo}"` : ''} aria-hidden="true">${S.date}</p>` : '')
     + `<div class="tb ${S.tpos}"><p class="kick tx" data-k="0" id="k${i}">Chapter ${ROMAN[i]} · ${S.dot}</p>${S.body.includes('<!--quiz-->') ? S.body.replace('<!--quiz-->', quiz) : S.body + quiz}</div>`
     + (S.end || '') + '</div>';
-  h += '<div class="shade"></div><p class="label">Illustration · artistic impression</p>';
+  h += '<div class="shade"></div><p class="label">Pascual • Salameda • Samiano • Santos</p>';
   sec.innerHTML = h;
   world.appendChild(sec);
 });
